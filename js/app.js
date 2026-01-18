@@ -141,6 +141,25 @@ const App = {
             container.appendChild(card);
         });
         
+        // Auto-open current day
+        const todayIndex = new Date().getDay();
+        const dayMap = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+        const todayName = dayMap[todayIndex];
+        
+        const todayCardIndex = currentWeek.days.findIndex(d => d.day === todayName);
+
+        if (todayCardIndex !== -1) {
+            const card = container.children[todayCardIndex + 1]; // +1 for week header
+            if (card) {
+                const content = card.querySelector('.day-content');
+                const icon = card.querySelector('.accordion-icon');
+                if (content && icon) {
+                    content.classList.add('open');
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            }
+        }
+
         // Animação de entrada
         const cards = container.querySelectorAll('.day-card');
         cards.forEach((card, i) => {

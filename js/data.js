@@ -63,6 +63,14 @@ const workoutData = {
                     exercises: [
                         { name: "Bike Intervalada", sets: "12 min", reps: "", notes: "30s FORTE / 30s LEVE. Suando e respirando fundo." }
                     ]
+                },
+                {
+                    day: "Domingo",
+                    mantra: "A mente comanda, o corpo obedece.",
+                    strategy: "Dia de Treino Livre e Motivação. Aproveite para fazer uma atividade que você goste ou apenas descansar ativamente. Prepare a mente para a próxima semana.",
+                    exercises: [
+                        { name: "Treino Livre / Descanso Ativo", sets: "Livre", reps: "", notes: "Caminhada, Alongamento, ou apenas meditação sobre seus objetivos." }
+                    ]
                 }
             ]
         },
