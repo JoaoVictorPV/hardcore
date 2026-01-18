@@ -190,20 +190,19 @@ const App = {
         }
 
         this.saveState();
-        this.renderCurrentWeek(); 
-        
-        // Re-open the accordion of the clicked day because render closes everything
-        setTimeout(() => {
-            const container = document.getElementById('workoutContainer');
-            // +1 because of week header
-            const card = container.children[dayIndex + 1];
-            if (card) {
-                const content = card.querySelector('.day-content');
-                const icon = card.querySelector('.accordion-icon');
+        this.renderCurrentWeek();
+
+        // Manter a aba aberta: localiza de novo o card e apenas marca o conteúdo como aberto
+        const container = document.getElementById('workoutContainer');
+        const card = container ? container.children[dayIndex + 1] : null;
+        if (card) {
+            const content = card.querySelector('.day-content');
+            const icon = card.querySelector('.accordion-icon');
+            if (content && icon) {
                 content.classList.add('open');
                 icon.style.transform = 'rotate(180deg)';
             }
-        }, 50);
+        }
 
         this.checkWeekCompletion(weekId);
     },
