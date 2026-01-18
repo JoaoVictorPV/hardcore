@@ -250,67 +250,91 @@ body {
     border-bottom: none;
 }
 
-/* Checkbox Styling */
-.cyber-checkbox {
-    appearance: none;
-    -webkit-appearance: none;
-    min-width: 24px;
-    height: 24px;
-    background: rgba(0, 0, 0, 0.5);
-    border: 2px solid var(--text-secondary);
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    transition: all 0.3s;
-    margin-top: 2px;
+/* Exercise List Styling */
+.exercise-text-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
 }
 
-.cyber-checkbox:checked {
-    background: var(--accent-green);
-    border-color: var(--accent-green);
-    box-shadow: 0 0 10px var(--accent-green);
+.exercise-text-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
-.cyber-checkbox:checked::after {
-    content: '';
-    position: absolute;
-    left: 7px;
-    top: 3px;
-    width: 6px;
-    height: 12px;
-    border: solid black;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+.ex-bullet {
+    color: var(--accent-red);
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 1;
 }
 
-.exercise-details {
+.ex-content {
     flex: 1;
 }
 
-.exercise-name {
-    font-weight: 600;
-    font-size: 1rem;
+.ex-main {
+    font-size: 0.95rem;
     margin-bottom: 4px;
-    color: var(--text-primary);
+    line-height: 1.4;
 }
 
-.exercise-meta {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    display: flex;
-    gap: 10px;
-    margin-bottom: 4px;
-}
-
-.exercise-notes {
-    font-size: 0.75rem;
-    color: #555;
+.ex-notes {
+    font-size: 0.8rem;
+    color: #666;
     font-style: italic;
+    margin-top: 2px;
 }
 
-.exercise-item.checked .exercise-name {
-    text-decoration: line-through;
-    color: var(--text-secondary);
+/* Day Actions */
+.day-actions {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid var(--glass-border);
+    background: rgba(0,0,0,0.2);
+}
+
+.complete-day-btn {
+    width: 100%;
+    padding: 15px;
+    background: transparent;
+    border: 1px solid var(--accent-red);
+    color: var(--accent-red);
+    border-radius: 8px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: var(--font-main);
+}
+
+.complete-day-btn:active {
+    transform: scale(0.98);
+}
+
+.complete-day-btn.completed {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+    color: #000;
+    box-shadow: 0 0 15px rgba(50, 215, 75, 0.4);
+}
+
+/* Flash Animation */
+@keyframes flashSuccess {
+    0% { background-color: var(--card-bg); }
+    50% { background-color: rgba(50, 215, 75, 0.3); }
+    100% { background-color: var(--card-bg); }
+}
+
+.flash-success {
+    animation: flashSuccess 0.5s ease;
 }
 
 /* Footer Clinical */

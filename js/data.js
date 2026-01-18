@@ -4,302 +4,276 @@ const workoutData = {
     program: [
         {
             id: "week0",
-            title: "Semana 0: Boot do Sistema",
-            description: "Inicialização dos protocolos motores. Adaptação neural e metabólica.",
+            title: "Semana 0: O BOOT (12 MIN)",
+            description: "Foco: Criação de hábito e técnica. Adaptação do sistema.",
             days: [
                 {
                     day: "Segunda",
-                    mantra: "A dor é apenas informação entrando no sistema.",
+                    mantra: "A repetição é a mãe da habilidade.",
                     exercises: [
-                        { name: "Box Squat", sets: "3", reps: "12-15", notes: "Controle a descida. Pausa de 1s no banco." },
-                        { name: "Supino Inclinado (Halteres)", sets: "3", reps: "12-15", notes: "Foco na porção clavicular. Alongue bem." },
-                        { name: "Remada Curvada", sets: "3", reps: "12-15", notes: "Estabilidade lombar. Esmague as escápulas." },
-                        { name: "Stiff", sets: "3", reps: "12-15", notes: "Posterior de coxa sob tensão constante." },
-                        { name: "Cardio Bike", sets: "1", reps: "12 min", notes: "Protocolo 30s intenso / 30s leve." }
+                        { name: "3 ROUNDS SEM DESCANSO:", sets: "", reps: "", notes: "" },
+                        { name: "Agachamento no Banco", sets: "1", reps: "15", notes: "Descida controlada de 3s. Toque o banco e suba." },
+                        { name: "Supino Inclinado (Halteres)", sets: "1", reps: "12", notes: "Banco a 30-45 graus. Amplitude completa." },
+                        { name: "Remada Unilateral", sets: "1", reps: "10/braço", notes: "Apoie no banco. Costas retas." },
+                        { name: "Stiff (RDL) Halter", sets: "1", reps: "12", notes: "Foco total no posterior. Coluna neutra." }
                     ]
                 },
                 {
                     day: "Terça",
-                    mantra: "Recalibrando sensores de fadiga.",
+                    mantra: "Cardio não é castigo, é combustível.",
                     exercises: [
-                        { name: "Flexão de Braço", sets: "3", reps: "Falha", notes: "Peito no chão. Cotovelos fechados." },
-                        { name: "Puxada Frontal", sets: "3", reps: "15", notes: "Foco na grande dorsal." },
-                        { name: "Elevação Lateral", sets: "3", reps: "15", notes: "Controle o movimento. Sem inércia." },
-                        { name: "Agachamento Goblet", sets: "3", reps: "15", notes: "Profundidade máxima." },
-                        { name: "Cardio Caminhada", sets: "1", reps: "20 min", notes: "Inclinada. Frequência moderada." }
+                        { name: "Bike 12 min", sets: "1", reps: "12 min", notes: "Intervalado: 30s Intenso / 30s Leve." }
                     ]
                 },
                 {
                     day: "Quarta",
-                    mantra: "O sistema cresce no descanso ativo.",
+                    mantra: "Consistência vence intensidade no longo prazo.",
                     exercises: [
-                        { name: "Mobilidade de Quadril", sets: "1", reps: "10 min", notes: "Soltar a cápsula articular." },
-                        { name: "Mobilidade de Torácica", sets: "1", reps: "10 min", notes: "Rotações e extensões." },
-                        { name: "Core: Prancha", sets: "3", reps: "45s", notes: "Abdômen travado." },
-                        { name: "Cardio Leve", sets: "1", reps: "30 min", notes: "Zona 2. Regenerativo." }
+                        { name: "3 ROUNDS SEM DESCANSO:", sets: "", reps: "", notes: "" },
+                        { name: "Agachamento no Banco", sets: "1", reps: "15", notes: "Descida controlada de 3s." },
+                        { name: "Supino Inclinado (Halteres)", sets: "1", reps: "12", notes: "Controle o peso." },
+                        { name: "Remada Unilateral", sets: "1", reps: "10/braço", notes: "Esmague a dorsal." },
+                        { name: "Stiff (RDL) Halter", sets: "1", reps: "12", notes: "Sinta o alongamento." }
                     ]
                 },
                 {
                     day: "Quinta",
-                    mantra: "Reiniciando protocolos de força.",
+                    mantra: "O coração é o motor.",
                     exercises: [
-                        { name: "Leg Press 45", sets: "3", reps: "15", notes: "Pés largura ombros." },
-                        { name: "Desenvolvimento Halteres", sets: "3", reps: "12", notes: "Cuidado com o ombro." },
-                        { name: "Remada Baixa", sets: "3", reps: "15", notes: "Alongue a dorsal na volta." },
-                        { name: "Cadeira Extensora", sets: "3", reps: "20", notes: "Isometria 2s no topo." },
-                        { name: "Cardio Bike", sets: "1", reps: "15 min", notes: "Ritmo constante." }
+                        { name: "Bike 12 min", sets: "1", reps: "12 min", notes: "Intervalado: 30s Intenso / 30s Leve." }
                     ]
                 },
                 {
                     day: "Sexta",
-                    mantra: "Otimização de vias metabólicas.",
+                    mantra: "Fim da primeira fase de adaptação.",
                     exercises: [
-                        { name: "Levantamento Terra Romeno", sets: "3", reps: "12", notes: "Foco total na cadeia posterior." },
-                        { name: "Supino Reto", sets: "3", reps: "12", notes: "Barra ou Halteres." },
-                        { name: "Barra Fixa (ou Graviton)", sets: "3", reps: "10", notes: "Amplitude completa." },
-                        { name: "Tríceps Corda", sets: "3", reps: "15", notes: "Esmague no final." },
-                        { name: "Bíceps Martelo", sets: "3", reps: "15", notes: "Braquial." }
+                        { name: "3 ROUNDS SEM DESCANSO:", sets: "", reps: "", notes: "" },
+                        { name: "Agachamento no Banco", sets: "1", reps: "15", notes: "Técnica perfeita." },
+                        { name: "Supino Inclinado (Halteres)", sets: "1", reps: "12", notes: "Força." },
+                        { name: "Remada Unilateral", sets: "1", reps: "10/braço", notes: "Estabilidade." },
+                        { name: "Stiff (RDL) Halter", sets: "1", reps: "12", notes: "Controle." }
                     ]
                 },
                 {
                     day: "Sábado",
-                    mantra: "Download completo da semana.",
+                    mantra: "Recarregar para evoluir.",
                     exercises: [
-                        { name: "HIIT Esteira", sets: "10", reps: "1 min / 1 min", notes: "Tiro forte / Caminhada." },
-                        { name: "Abdominal Infra", sets: "3", reps: "20", notes: "Elevação de pernas." },
-                        { name: "Abdominal Supra", sets: "3", reps: "20", notes: "Crunch curto." }
+                        { name: "Bike 12 min", sets: "1", reps: "12 min", notes: "Intervalado: 30s Intenso / 30s Leve." }
                     ]
                 }
             ]
         },
         {
             id: "week1",
-            title: "Semana 1: Calibração (EMOM/AMRAP)",
-            description: "Aumentando a densidade de trabalho. Densidade = Volume / Tempo.",
+            title: "Semana 1: IGNIÇÃO (18-20 MIN)",
+            description: "Foco: Calibração de carga. Aumentando a demanda metabólica.",
             days: [
                 {
                     day: "Segunda",
-                    mantra: "Sua mente desiste antes do seu corpo.",
+                    mantra: "EMOM: Every Minute On the Minute.",
                     exercises: [
-                        { name: "Agachamento Livre", sets: "EMOM 10'", reps: "10", notes: "Every Minute on the Minute. 10 reps por minuto por 10 min." },
-                        { name: "Flexão de Braço", sets: "AMRAP 8'", reps: "Max", notes: "As Many Reps As Possible em 8 minutos." },
-                        { name: "Burpees", sets: "3", reps: "15", notes: "Sem pausa." }
+                        { name: "EMOM 18 minutos", sets: "18 min", reps: "", notes: "Alterne os exercícios a cada minuto." },
+                        { name: "Minutos Ímpares: Supino Inclinado", sets: "", reps: "15", notes: "Faça 15 reps e descanse o resto do minuto." },
+                        { name: "Minutos Pares: Box Squat", sets: "", reps: "15", notes: "Faça 15 reps e descanse o resto do minuto." }
                     ]
                 },
                 {
                     day: "Terça",
-                    mantra: "Disciplina é liberdade.",
+                    mantra: "Picos de intensidade.",
                     exercises: [
-                        { name: "Barra Fixa", sets: "EMOM 10'", reps: "5", notes: "5 reps todo minuto." },
-                        { name: "Desenvolvimento Militar", sets: "4", reps: "12", notes: "Controle." },
-                        { name: "Corrida", sets: "1", reps: "3km", notes: "Tempo alvo: < 18min." }
+                        { name: "Bike 20 min", sets: "1", reps: "20 min", notes: "10 Ciclos: 30s MÁXIMO / 30s Leve." }
                     ]
                 },
                 {
                     day: "Quarta",
-                    mantra: "Construindo a armadura.",
+                    mantra: "AMRAP: As Many Rounds As Possible.",
                     exercises: [
-                        { name: "Descanso Ativo", sets: "1", reps: "45 min", notes: "Caminhada ou Natação." },
-                        { name: "Alongamento", sets: "1", reps: "20 min", notes: "Full body." }
+                        { name: "AMRAP 15 minutos", sets: "15 min", reps: "Máx Rounds", notes: "Descanse apenas se necessário." },
+                        { name: "Remada Unilateral", sets: "", reps: "12/lado", notes: "Sem roubar." },
+                        { name: "RDL (Stiff)", sets: "", reps: "12", notes: "Negativa lenta." },
+                        { name: "Desenvolvimento Ombros", sets: "", reps: "10", notes: "Halteres ou Mochila." }
                     ]
                 },
                 {
                     day: "Quinta",
-                    mantra: "Sem atalhos. Apenas trabalho duro.",
+                    mantra: "Resistência e Velocidade.",
                     exercises: [
-                        { name: "Deadlift", sets: "5", reps: "5", notes: "Força base." },
-                        { name: "Passada (Lunge)", sets: "3", reps: "20 passos", notes: "Total." },
-                        { name: "Prancha Abdominal", sets: "3", reps: "1 min", notes: "Estática." }
+                        { name: "Bike 20 min", sets: "1", reps: "20 min", notes: "Steady State + 60s Sprint a cada 4 min." }
                     ]
                 },
                 {
                     day: "Sexta",
-                    mantra: "Supere seu eu de ontem.",
+                    mantra: "Circuito Metabólico.",
                     exercises: [
-                        { name: "Supino Reto", sets: "EMOM 10'", reps: "10", notes: "Carga moderada." },
-                        { name: "Remada Curvada", sets: "4", reps: "12", notes: "Pegada supinada." },
-                        { name: "Rosca Direta", sets: "3", reps: "15", notes: "Drop-set na última." }
+                        { name: "Circuito 4 Rounds", sets: "4", reps: "", notes: "Mínimo descanso entre exercícios." },
+                        { name: "Flexão no Banco (ou chão)", sets: "", reps: "Falha", notes: "Peito no apoio." },
+                        { name: "Goblet Squat", sets: "", reps: "15", notes: "Halter no peito." },
+                        { name: "Remada Curvada", sets: "", reps: "15", notes: "Tronco paralelo." },
+                        { name: "Crucifixo Inverso", sets: "", reps: "15", notes: "Posterior de ombro." }
                     ]
                 },
                 {
                     day: "Sábado",
-                    mantra: "O limite é uma ilusão.",
+                    mantra: "LISS: Low Intensity Steady State.",
                     exercises: [
-                        { name: "Corrida Intervaada", sets: "8", reps: "400m", notes: "Tiros de 400m. Descanso 2 min." },
-                        { name: "Core", sets: "Circuit", reps: "3 rounds", notes: "20 Abs, 20 Lombar, 1min Prancha." }
+                        { name: "Bike 30 min", sets: "1", reps: "30 min", notes: "Ritmo moderado constante. Zona 2." }
                     ]
                 }
             ]
         },
         {
             id: "week2",
-            title: "Semana 2: Rest-Pause & Negativas",
-            description: "Intensidade técnica. Controle excêntrico e pausas estratégicas.",
+            title: "Semana 2: DENSIDADE (20-22 MIN)",
+            description: "Foco: Tempo sob tensão. Controle e pausas.",
             days: [
                 {
                     day: "Segunda",
-                    mantra: "Controle a descida, domine a subida.",
+                    mantra: "Tensão mecânica gera força.",
                     exercises: [
-                        { name: "Leg Press", sets: "3", reps: "12", notes: "3s na fase negativa (descida)." },
-                        { name: "Supino Inclinado", sets: "3", reps: "10 + Falha", notes: "Rest-Pause: Faça 10, descanse 15s, faça máx." },
-                        { name: "Cadeira Extensora", sets: "3", reps: "15", notes: "Negativa de 4 segundos." }
+                        { name: "Supino Inclinado", sets: "4", reps: "10 + Rest-Pause", notes: "Na última série, descanse 15s e faça mais reps até a falha." },
+                        { name: "Goblet Squat", sets: "4", reps: "12", notes: "Pausa de 2 segundos no fundo (agachado)." }
                     ]
                 },
                 {
                     day: "Terça",
-                    mantra: "A gravidade é sua ferramenta.",
+                    mantra: "Explosão.",
                     exercises: [
-                        { name: "Puxada Alta", sets: "3", reps: "12", notes: "Segure 2s em baixo." },
-                        { name: "Rosca Scott", sets: "3", reps: "10", notes: "Negativa ultra lenta." },
-                        { name: "Tríceps Testa", sets: "3", reps: "12", notes: "Controle total." }
+                        { name: "Bike HIIT", sets: "10 Ciclos", reps: "", notes: "40s Carga Explosiva / 20s Off total (parado)." }
                     ]
                 },
                 {
                     day: "Quarta",
-                    mantra: "Recuperação é parte do treino.",
+                    mantra: "Foco no LCA e Cadeia Posterior.",
                     exercises: [
-                        { name: "Cardio LISS", sets: "1", reps: "40 min", notes: "Low Intensity Steady State." },
-                        { name: "Foam Rolling", sets: "1", reps: "15 min", notes: "Liberação miofascial." }
+                        { name: "Remada Curvada", sets: "4", reps: "10", notes: "Controle total." },
+                        { name: "Stiff (RDL)", sets: "4", reps: "12", notes: "Negativa de 5 segundos (descida muito lenta)." }
                     ]
                 },
                 {
                     day: "Quinta",
-                    mantra: "Tensão gera adaptação.",
+                    mantra: "Escada de Carga.",
                     exercises: [
-                        { name: "Agachamento Hack", sets: "3", reps: "10", notes: "Pausa de 2s no fundo." },
-                        { name: "Stiff", sets: "3", reps: "12", notes: "Negativa controlada." },
-                        { name: "Panturrilha em Pé", sets: "4", reps: "15", notes: "Pausa no topo e no fundo." }
+                        { name: "Bike 20 min (Escada)", sets: "1", reps: "20 min", notes: "Aumente a carga a cada 4 min: Nível 3 -> 5 -> 7 -> 5 -> 3." }
                     ]
                 },
                 {
                     day: "Sexta",
-                    mantra: "Forje o aço no fogo.",
+                    mantra: "Volume alto, descanso zero.",
                     exercises: [
-                        { name: "Desenvolvimento Ombros", sets: "3", reps: "10 + Falha", notes: "Rest-Pause." },
-                        { name: "Elevação Lateral", sets: "4", reps: "15", notes: "Sem roubar." },
-                        { name: "Encolhimento", sets: "3", reps: "20", notes: "Segure 3s em cima." }
+                        { name: "5 Rounds Sem Descanso", sets: "5", reps: "", notes: "Supino + Box Squat + Remada + Bíceps/Tríceps." }
                     ]
                 },
                 {
                     day: "Sábado",
-                    mantra: "Fim de ciclo. Prepare-se.",
+                    mantra: "Queima de gordura.",
                     exercises: [
-                        { name: "Cardio", sets: "1", reps: "5km", notes: "Ritmo de prova." },
-                        { name: "Abdominais", sets: "4", reps: "25", notes: "Variados." }
+                        { name: "Cardio Moderado", sets: "1", reps: "40 min", notes: "Bike ou Caminhada Rápida." }
                     ]
                 }
             ]
         },
         {
             id: "week3",
-            title: "Semana 3: Bi-sets & Foco LCA",
-            description: "Volume alto, descanso curto. Estresse metabólico máximo.",
+            title: "Semana 3: VARIABILIDADE (25 MIN)",
+            description: "Foco: Bi-sets e estabilidade LCA. Estímulos compostos.",
             days: [
                 {
                     day: "Segunda",
-                    mantra: "Volume é vaidade, intensidade é sanidade.",
+                    mantra: "Bi-sets: Dobro do resultado.",
                     exercises: [
-                        { name: "Bi-set: Agachamento + Extensora", sets: "3", reps: "12 + 15", notes: "Sem descanso entre exercícios." },
-                        { name: "Bi-set: Supino + Flexão", sets: "3", reps: "10 + Falha", notes: "Pump máximo." },
-                        { name: "Cardio", sets: "1", reps: "15 min", notes: "Pós-treino." }
+                        { name: "Bi-set 1 (4 Séries)", sets: "4", reps: "", notes: "Supino Inclinado + Remada Unilateral. Sem descanso entre eles." },
+                        { name: "Bi-set 2 (3 Séries)", sets: "3", reps: "", notes: "Crucifixo + Remada Curvada." }
                     ]
                 },
                 {
                     day: "Terça",
-                    mantra: "Queime o combustível.",
+                    mantra: "Pirâmide de Carga.",
                     exercises: [
-                        { name: "Bi-set: Puxada + Remada", sets: "3", reps: "12 + 12", notes: "Costas completas." },
-                        { name: "Bi-set: Rosca Direta + Martelo", sets: "3", reps: "10 + 10", notes: "Bíceps." },
-                        { name: "Cardio", sets: "1", reps: "15 min", notes: "HIIT." }
+                        { name: "Bike Pirâmide", sets: "4 Ciclos", reps: "1 min cada", notes: "Carga 4 -> 6 -> 8 -> 4. Repita 4 vezes." }
                     ]
                 },
                 {
                     day: "Quarta",
-                    mantra: "Mantenha o fluxo.",
+                    mantra: "Propriocepção e Estabilidade.",
                     exercises: [
-                        { name: "Yoga ou Mobilidade", sets: "1", reps: "45 min", notes: "Foco em respiração." }
+                        { name: "Step-up no Banco", sets: "3", reps: "10/perna", notes: "Subida controlada." },
+                        { name: "Stiff Unilateral", sets: "3", reps: "12", notes: "Equilíbrio e foco no posterior." },
+                        { name: "Wall Sit (Cadeirinha)", sets: "3", reps: "45s", notes: "Isometria na parede." }
                     ]
                 },
                 {
                     day: "Quinta",
-                    mantra: "Pernas de aço.",
+                    mantra: "Shunt Sanguíneo.",
                     exercises: [
-                        { name: "Bi-set: Leg Press + Passada", sets: "3", reps: "15 + 20", notes: "Ardor láctico." },
-                        { name: "Bi-set: Flexora + Stiff", sets: "3", reps: "15 + 10", notes: "Posterior." },
-                        { name: "Panturrilha Sentado", sets: "4", reps: "20", notes: "Drop-set na última." }
+                        { name: "Bike Shunt 25 min", sets: "1", reps: "25 min", notes: "Pedalada constante. A CADA 5 MIN: Pare e faça 15 Agachamentos (sem peso)." }
                     ]
                 },
                 {
                     day: "Sexta",
-                    mantra: "Empurre e Puxe.",
+                    mantra: "Tri-set de Ombros.",
                     exercises: [
-                        { name: "Bi-set: Desenv. Ombro + Elev. Lateral", sets: "3", reps: "10 + 15", notes: "Ombros." },
-                        { name: "Bi-set: Tríceps Testa + Banco", sets: "3", reps: "12 + Falha", notes: "Tríceps." }
+                        { name: "Tri-set (3 Séries)", sets: "3", reps: "", notes: "Arnold Press + Elevação Lateral + Crucifixo Inverso." }
                     ]
                 },
                 {
                     day: "Sábado",
-                    mantra: "O tanque nunca está vazio.",
+                    mantra: "Tiros Máximos.",
                     exercises: [
-                        { name: "Murph Adaptado", sets: "1", reps: "Tempo", notes: "800m run, 50 pull, 100 push, 150 squat, 800m run." }
+                        { name: "Bike HIIT", sets: "10 Tiros", reps: "30s", notes: "Carga Máxima por 30s. Descanso total de 1 min." }
                     ]
                 }
             ]
         },
         {
             id: "week4",
-            title: "Semana 4: Weighted Warrior",
-            description: "Carga extra. Mochila, elásticos, peso do corpo + sobrecarga.",
+            title: "Semana 4: HÍBRIDA (25 MIN)",
+            description: "Foco: Mochila, Elásticos e Calistenia. Treino de Guerreiro.",
             days: [
                 {
                     day: "Segunda",
-                    mantra: "Carregue seu peso e mais um pouco.",
+                    mantra: "Modo Warrior.",
                     exercises: [
-                        { name: "Flexão com Peso (Mochila)", sets: "4", reps: "8-10", notes: "Use mochila com livros/peso." },
-                        { name: "Agachamento com Peso", sets: "4", reps: "12", notes: "Segure o peso no peito." },
-                        { name: "Remada Unilateral", sets: "4", reps: "10", notes: "Pesada." }
+                        { name: "Flexão com Mochila", sets: "Falha", reps: "Máx", notes: "Use mochila com peso." },
+                        { name: "Serrote com Elástico", sets: "4", reps: "12", notes: "Unilateral." },
+                        { name: "Desenvolvimento Mochila", sets: "4", reps: "15", notes: "Segure a mochila e empurre acima da cabeça." }
                     ]
                 },
                 {
                     day: "Terça",
-                    mantra: "Resistência sob pressão.",
+                    mantra: "Protocolo Tabata.",
                     exercises: [
-                        { name: "Barra Fixa com Peso", sets: "3", reps: "Falha", notes: "Se possível." },
-                        { name: "Mergulho (Dips) com Peso", sets: "3", reps: "10", notes: "Mochila nas costas." },
-                        { name: "Caminhada do Fazendeiro", sets: "3", reps: "1 min", notes: "Segure pesos pesados e ande." }
+                        { name: "2 Blocos Tabata", sets: "8 rounds cada", reps: "20s/10s", notes: "20s Carga Alta / 10s Off. Descanse 2 min entre os blocos." }
                     ]
                 },
                 {
                     day: "Quarta",
-                    mantra: "Guerreiro descansa, mas não para.",
+                    mantra: "Power LCA.",
                     exercises: [
-                        { name: "Caminhada com Mochila (Rucking)", sets: "1", reps: "5 km", notes: "Mochila pesada. Ritmo forte." }
+                        { name: "Agachamento Mochila + Elástico", sets: "4", reps: "15", notes: "Elástico logo acima dos joelhos para ativar glúteo médio." },
+                        { name: "Stiff Unilateral com Elástico", sets: "3", reps: "10", notes: "Pise no elástico e segure a ponta." }
                     ]
                 },
                 {
                     day: "Quinta",
-                    mantra: "Explosão controlada.",
+                    mantra: "Recuperação Ativa.",
                     exercises: [
-                        { name: "Thruster (Agacho + Desenv.)", sets: "4", reps: "12", notes: "Movimento contínuo." },
-                        { name: "Kettlebell Swing (ou com Halter)", sets: "4", reps: "20", notes: "Quadril explosivo." },
-                        { name: "Burpee Over Bar", sets: "3", reps: "10", notes: "Salte sobre o objeto." }
+                        { name: "Bike Leve", sets: "1", reps: "30 min", notes: "Soltar as pernas." },
+                        { name: "Mobilidade de Quadril", sets: "1", reps: "10 min", notes: "Alongamento profundo." }
                     ]
                 },
                 {
                     day: "Sexta",
-                    mantra: "O teste final se aproxima.",
+                    mantra: "Caos Controlado.",
                     exercises: [
-                        { name: "Levantamento Terra", sets: "5", reps: "5", notes: "Carga máxima técnica." },
-                        { name: "Supino Fechado", sets: "4", reps: "8", notes: "Tríceps força." },
-                        { name: "Barra Supinada (Chin up)", sets: "3", reps: "Falha", notes: "Bíceps." }
+                        { name: "5 Rounds Chaos", sets: "5", reps: "", notes: "Supino (Halter+Elástico) / Agacho Sumô Mochila / Remada / Braços." }
                     ]
                 },
                 {
                     day: "Sábado",
-                    mantra: "Você sobreviveu.",
+                    mantra: "Endurance Final.",
                     exercises: [
-                        { name: "Desafio 100", sets: "1", reps: "Tempo", notes: "100 Flexões, 100 Agachamentos, 100 Abs." },
-                        { name: "Corrida Final", sets: "1", reps: "5km", notes: "Melhor tempo possível." }
+                        { name: "Bike Intervalada", sets: "1", reps: "20 min", notes: "Variação de carga livre." },
+                        { name: "Prancha Abdominal", sets: "3", reps: "1 min", notes: "Core de aço." }
                     ]
                 }
             ]

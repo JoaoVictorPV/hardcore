@@ -3,7 +3,7 @@
 const App = {
     state: {
         currentWeekIndex: 0,
-        completedExercises: {}, // Map: "weekId-dayIndex-exIndex" -> boolean
+        completedDays: {}, // Map: "weekId-dayIndex" -> ISO Date String
         clinical: {}
     },
 
@@ -14,9 +14,6 @@ const App = {
         this.renderCurrentWeek();
         this.updateGlobalProgress();
         this.loadClinicalData();
-        
-        // Auto-save loop (backup a cada 1 min ou apenas nos eventos)
-        // Optamos por salvar nos eventos (check, change week, etc)
     },
 
     loadState() {
@@ -24,8 +21,9 @@ const App = {
         if (savedState) {
             const parsed = JSON.parse(savedState);
             this.state = { ...this.state, ...parsed };
+            // Migração de dados antigos se necessário (se mudou de completedExercises para completedDays)
+            if (!this.state.completedDays) this.state.completedDays = {};
         } else {
-            // Check default week based on date? No, start from 0.
             this.state.currentWeekIndex = 0;
         }
     },
@@ -37,22 +35,16 @@ const App = {
 
     renderHeaderPhrase() {
         const phraseEl = document.getElementById('dynamicPhrase');
-        const hour = new Date().getHours();
-        let phrase = "";
-
-        // Seleção contextual simples + aleatoriedade
         const phrases = workoutData.motivationalPhrases;
         const randomIndex = Math.floor(Math.random() * phrases.length);
-        phrase = phrases[randomIndex];
-        
-        // Efeito de digitação (opcional, mas legal para cyberpunk)
+        const phrase = phrases[randomIndex];
         this.typeWriterEffect(phraseEl, phrase);
     },
 
     typeWriterEffect(element, text) {
         element.textContent = "";
         let i = 0;
-        const speed = 30; // ms
+        const speed = 30;
         
         function type() {
             if (i < text.length) {
@@ -74,7 +66,7 @@ const App = {
             btn.textContent = `SEMANA ${index}`;
             btn.onclick = () => {
                 this.state.currentWeekIndex = index;
-                this.renderWeekSelector(); // Re-render to update active class
+                this.renderWeekSelector();
                 this.renderCurrentWeek();
                 this.saveState();
             };
@@ -101,7 +93,8 @@ const App = {
 
         // Dias
         currentWeek.days.forEach((day, dayIndex) => {
-            const isDayComplete = this.checkDayCompletion(currentWeek.id, dayIndex, day.exercises.length);
+            const dayId = `${currentWeek.id}-${dayIndex}`;
+            const isDayComplete = !!this.state.completedDays[dayId];
             
             const card = document.createElement('div');
             card.className = `day-card ${isDayComplete ? 'completed-day' : ''}`;
@@ -109,30 +102,30 @@ const App = {
                 <div class="day-header">
                     <div class="day-title-row">
                         <span class="day-name">${day.day}</span>
-                        ${isDayComplete ? '<span class="day-badge">COMPLETO</span>' : ''}
+                        ${isDayComplete ? '<span class="day-badge">CONCLUÍDO</span>' : ''}
                     </div>
                     <div class="day-mantra">"${day.mantra}"</div>
                 </div>
                 <div class="exercise-list">
-                    ${day.exercises.map((ex, exIndex) => {
-                        const uniqueId = `${currentWeek.id}-${dayIndex}-${exIndex}`;
-                        const isChecked = this.state.completedExercises[uniqueId];
-                        
-                        return `
-                            <div class="exercise-item ${isChecked ? 'checked' : ''}">
-                                <input type="checkbox" class="cyber-checkbox" 
-                                    ${isChecked ? 'checked' : ''} 
-                                    onchange="App.toggleExercise('${uniqueId}', '${currentWeek.id}', ${dayIndex})">
-                                <div class="exercise-details">
-                                    <div class="exercise-name">${ex.name}</div>
-                                    <div class="exercise-meta">
-                                        <span>${ex.sets} séries</span> • <span>${ex.reps} reps</span>
-                                    </div>
-                                    <div class="exercise-notes">${ex.notes}</div>
+                    ${day.exercises.map(ex => `
+                        <div class="exercise-text-item">
+                            <span class="ex-bullet">›</span>
+                            <div class="ex-content">
+                                <div class="ex-main">
+                                    <strong style="color: #fff;">${ex.name}</strong> 
+                                    ${ex.sets ? `<span style="color: var(--accent-blue);"> • ${ex.sets}</span>` : ''}
+                                    ${ex.reps ? `<span style="color: var(--accent-blue);"> • ${ex.reps}</span>` : ''}
                                 </div>
+                                ${ex.notes ? `<div class="ex-notes">${ex.notes}</div>` : ''}
                             </div>
-                        `;
-                    }).join('')}
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="day-actions">
+                    <button class="complete-day-btn ${isDayComplete ? 'completed' : ''}" 
+                        onclick="App.toggleDayCompletion('${currentWeek.id}', ${dayIndex})">
+                        ${isDayComplete ? 'DIA CONCLUÍDO' : 'CONCLUIR MISSÃO'}
+                    </button>
                 </div>
             `;
             container.appendChild(card);
@@ -146,74 +139,32 @@ const App = {
         });
     },
 
-    toggleExercise(uniqueId, weekId, dayIndex) {
-        // Toggle state
-        if (this.state.completedExercises[uniqueId]) {
-            delete this.state.completedExercises[uniqueId];
+    toggleDayCompletion(weekId, dayIndex) {
+        const dayId = `${weekId}-${dayIndex}`;
+        
+        if (this.state.completedDays[dayId]) {
+            // Desmarcar? Opcional. Vamos permitir desmarcar caso erro.
+            delete this.state.completedDays[dayId];
         } else {
-            this.state.completedExercises[uniqueId] = true;
+            this.state.completedDays[dayId] = new Date().toISOString();
             this.triggerHapticFeedback();
+            this.triggerCompletionAnimation(dayIndex);
         }
 
         this.saveState();
-        
-        // Re-render apenas para atualizar visuais (simples, mas eficaz)
-        // Numa SPA reativa usaríamos VDOM, aqui re-renderizamos a semana ou manipulamos DOM direto.
-        // Vamos manipular DOM direto para performance e UX (não perder scroll).
-        this.updateUIWithoutFullRender(weekId, dayIndex);
-        
+        this.renderCurrentWeek(); // Re-render completo é seguro e rápido aqui
         this.checkWeekCompletion(weekId);
     },
 
-    updateUIWithoutFullRender(weekId, dayIndex) {
-        // Atualiza estilo do item específico e do card do dia
-        const currentWeek = workoutData.program[this.state.currentWeekIndex];
-        const totalExercises = currentWeek.days[dayIndex].exercises.length;
-        const isDayComplete = this.checkDayCompletion(weekId, dayIndex, totalExercises);
-        
-        // Encontrar o card no DOM (assumindo ordem)
-        // Como temos weekHeader primeiro, os cards começam do index 1 no children
+    triggerCompletionAnimation(dayIndex) {
+        // Encontrar o card e adicionar classe de flash
+        // +1 offset pelo header
         const container = document.getElementById('workoutContainer');
-        // index + 1 por causa do header
-        const card = container.children[dayIndex + 1]; 
-        
+        const card = container.children[dayIndex + 1];
         if (card) {
-            if (isDayComplete) {
-                card.classList.add('completed-day');
-                const badgeArea = card.querySelector('.day-title-row');
-                if (!badgeArea.querySelector('.day-badge')) {
-                    const badge = document.createElement('span');
-                    badge.className = 'day-badge';
-                    badge.textContent = 'COMPLETO';
-                    badgeArea.appendChild(badge);
-                }
-            } else {
-                card.classList.remove('completed-day');
-                const badge = card.querySelector('.day-badge');
-                if (badge) badge.remove();
-            }
-            
-            // Atualizar classes 'checked' nos itens
-            const checkboxes = card.querySelectorAll('.cyber-checkbox');
-            checkboxes.forEach((cb, idx) => {
-                const itemRow = cb.closest('.exercise-item');
-                if (cb.checked) {
-                    itemRow.classList.add('checked');
-                } else {
-                    itemRow.classList.remove('checked');
-                }
-            });
+            card.classList.add('flash-success');
+            setTimeout(() => card.classList.remove('flash-success'), 1000);
         }
-    },
-
-    checkDayCompletion(weekId, dayIndex, totalExercises) {
-        let completedCount = 0;
-        for (let i = 0; i < totalExercises; i++) {
-            if (this.state.completedExercises[`${weekId}-${dayIndex}-${i}`]) {
-                completedCount++;
-            }
-        }
-        return completedCount === totalExercises;
     },
 
     checkWeekCompletion(weekId) {
@@ -222,17 +173,12 @@ const App = {
 
         let allComplete = true;
         week.days.forEach((day, dIdx) => {
-            day.exercises.forEach((ex, eIdx) => {
-                if (!this.state.completedExercises[`${weekId}-${dIdx}-${eIdx}`]) {
-                    allComplete = false;
-                }
-            });
+            if (!this.state.completedDays[`${weekId}-${dIdx}`]) {
+                allComplete = false;
+            }
         });
 
         if (allComplete) {
-            // Verificar se já mostramos o modal para esta semana nesta sessão?
-            // Ou apenas mostrar. Vamos mostrar.
-            // Para não spamar, poderíamos salvar 'weekCompletedShown' no state.
             if (!this.state[`completed_shown_${weekId}`]) {
                 this.showLevelUpModal();
                 this.state[`completed_shown_${weekId}`] = true;
@@ -242,36 +188,32 @@ const App = {
     },
 
     updateGlobalProgress() {
-        let totalExercises = 0;
-        let completedExercises = 0;
+        let totalDays = 0;
+        let completedDays = 0;
 
         workoutData.program.forEach(week => {
+            totalDays += week.days.length;
             week.days.forEach((day, dIdx) => {
-                day.exercises.forEach((ex, eIdx) => {
-                    totalExercises++;
-                    if (this.state.completedExercises[`${week.id}-${dIdx}-${eIdx}`]) {
-                        completedExercises++;
-                    }
-                });
+                if (this.state.completedDays[`${week.id}-${dIdx}`]) {
+                    completedDays++;
+                }
             });
         });
 
-        const percent = totalExercises === 0 ? 0 : Math.round((completedExercises / totalExercises) * 100);
+        const percent = totalDays === 0 ? 0 : Math.round((completedDays / totalDays) * 100);
         
         document.getElementById('globalProgressPercent').textContent = `${percent}%`;
         document.getElementById('globalProgressBar').style.width = `${percent}%`;
         
-        // Cor da barra muda conforme progresso
         const bar = document.getElementById('globalProgressBar');
         if (percent < 30) bar.style.backgroundColor = 'var(--accent-blue)';
-        else if (percent < 70) bar.style.backgroundColor = '#bf5af2'; // Roxo
+        else if (percent < 70) bar.style.backgroundColor = '#bf5af2';
         else bar.style.backgroundColor = 'var(--accent-green)';
     },
 
     triggerHapticFeedback() {
-        // Visual shake ou flash
         if (navigator.vibrate) {
-            navigator.vibrate(50); // Haptic real em Android
+            navigator.vibrate([50, 50, 50]); 
         }
     },
 
@@ -288,18 +230,44 @@ const App = {
             document.getElementById('bfInput').value = this.state.clinical.bf || '';
             document.getElementById('waterInput').value = this.state.clinical.water || '';
             this.calcMetrics();
+            
+            this.checkClinicalLock();
+        }
+    },
+
+    checkClinicalLock() {
+        const lastUpdated = this.state.clinical.lastUpdated;
+        if (lastUpdated) {
+            const lastDate = new Date(lastUpdated).toDateString();
+            const today = new Date().toDateString();
+            
+            if (lastDate === today) {
+                this.disableClinicalInputs(true);
+            } else {
+                this.disableClinicalInputs(false);
+            }
+        }
+    },
+
+    disableClinicalInputs(disable) {
+        const inputs = document.querySelectorAll('.clinical-form input');
+        const btn = document.getElementById('saveClinicalBtn');
+        
+        inputs.forEach(input => input.disabled = disable);
+        btn.disabled = disable;
+        
+        if (disable) {
+            btn.textContent = "DADOS JÁ ATUALIZADOS HOJE";
+            btn.style.opacity = "0.5";
+        } else {
+            btn.textContent = "GRAVAR DADOS";
+            btn.style.opacity = "1";
         }
     },
 
     calcMetrics() {
         const weight = parseFloat(document.getElementById('weightInput').value) || 0;
         const bf = parseFloat(document.getElementById('bfInput').value) || 0;
-        // Altura? Não pedida, mas necessária para IMC.
-        // Vamos assumir IMC apenas se tiver altura, mas o prompt não pediu input de altura.
-        // Vou adicionar input de altura dinamicamente ou deixar IMC manual? 
-        // Prompt pediu campo IMC. Vou deixar como cálculo automático se tiver peso e altura (se eu adicionar altura), 
-        // ou input manual. O prompt diz: "Footer Clínico: Campo para anotação... inicialmente apenas armazenados".
-        // Vou deixar inputs editáveis. Mas se puder calcular massa magra, melhor.
         
         if (weight > 0 && bf > 0) {
             const fatMass = weight * (bf / 100);
@@ -309,7 +277,7 @@ const App = {
     }
 };
 
-// Event Listeners Footer
+// Event Listeners
 function toggleFooter() {
     document.querySelector('.clinical-footer').classList.toggle('open');
 }
@@ -323,30 +291,27 @@ document.getElementById('saveClinicalBtn').addEventListener('click', () => {
     const bf = document.getElementById('bfInput').value;
     const water = document.getElementById('waterInput').value;
     
-    // IMC calculation inputs might be added later, currently storing raw
     App.state.clinical = {
         weight, bf, water,
         lastUpdated: new Date().toISOString()
     };
     App.saveState();
     
-    // Feedback
+    // Feedback e Bloqueio
     const btn = document.getElementById('saveClinicalBtn');
-    const originalText = btn.textContent;
     btn.textContent = "DADOS GRAVADOS";
     btn.style.backgroundColor = "var(--accent-green)";
+    
     setTimeout(() => {
-        btn.textContent = originalText;
         btn.style.backgroundColor = "var(--accent-blue)";
         toggleFooter();
+        App.checkClinicalLock(); // Bloqueia inputs
     }, 1500);
 });
 
-// Input listeners for auto-calc
 document.getElementById('weightInput').addEventListener('input', () => App.calcMetrics());
 document.getElementById('bfInput').addEventListener('input', () => App.calcMetrics());
 
-// Start App
 document.addEventListener('DOMContentLoaded', () => {
     App.init();
 });
