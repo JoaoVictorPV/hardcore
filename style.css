@@ -277,17 +277,23 @@ body {
 .week-selector {
     display: flex;
     overflow-x: auto;
-    padding: 8px var(--padding-std) 24px;
+    padding: 12px var(--padding-std) 24px;
     gap: 8px;
     max-width: 520px;
     margin: 0 auto 24px;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     scrollbar-width: none; /* Firefox */
 }
 
 .week-selector::-webkit-scrollbar {
     display: none; /* Chrome/Safari */
+}
+
+.week-selector::before,
+.week-selector::after {
+    content: "";
+    flex: 0 0 6px; /* espaço de respiro nas laterais para não cortar botões */
 }
 
 .week-tab {
