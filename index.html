@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HARDCORE TRACKER</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Fontes: Usando Inter como alternativa de alta qualidade ao SF Pro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+
+    <div class="background-grid"></div>
+
+    <header class="app-header">
+        <div class="logo-area">
+            <h1>HARDCORE<span class="highlight">.SYS</span></h1>
+            <div class="status-dot"></div>
+        </div>
+        <div class="dynamic-phrase" id="dynamicPhrase">
+            "Carregando sistema..."
+        </div>
+    </header>
+
+    <div class="progress-section glass-panel">
+        <div class="progress-header">
+            <span>PROGRESSO GLOBAL</span>
+            <span id="globalProgressPercent">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="globalProgressBar"></div>
+        </div>
+    </div>
+
+    <nav class="week-selector" id="weekSelector">
+        <!-- Renderizado via JS -->
+    </nav>
+
+    <main class="workout-container" id="workoutContainer">
+        <!-- Renderizado via JS -->
+    </main>
+
+    <footer class="clinical-footer glass-panel">
+        <div class="footer-header" onclick="toggleFooter()">
+            <h2>DADOS CLÍNICOS</h2>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div class="clinical-form" id="clinicalForm">
+            <div class="input-group">
+                <label>Peso (kg)</label>
+                <input type="number" id="weightInput" placeholder="00.0">
+            </div>
+            <div class="input-group">
+                <label>BF (%)</label>
+                <input type="number" id="bfInput" placeholder="00.0">
+            </div>
+            <div class="input-group">
+                <label>IMC</label>
+                <input type="number" id="imcInput" placeholder="00.0" readonly>
+            </div>
+            <div class="input-group">
+                <label>Massa Magra (kg)</label>
+                <input type="number" id="muscleInput" placeholder="00.0" readonly>
+            </div>
+            <div class="input-group">
+                <label>Água (%)</label>
+                <input type="number" id="waterInput" placeholder="00.0">
+            </div>
+            <button class="save-btn" id="saveClinicalBtn">GRAVAR DADOS</button>
+        </div>
+    </footer>
+
+    <!-- Level Up Modal -->
+    <div class="modal-overlay" id="levelUpModal">
+        <div class="modal-content glass-panel">
+            <h2 class="neon-text-blue">NÍVEL DE ACESSO AUMENTADO</h2>
+            <p id="levelUpMessage">Semana concluída com sucesso.</p>
+            <button class="close-modal-btn" onclick="closeModal()">CONFIRMAR</button>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
