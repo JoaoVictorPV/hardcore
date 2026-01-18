@@ -4,7 +4,8 @@ const App = {
     state: {
         currentWeekIndex: 0,
         completedDays: {}, // Map: "weekId-dayIndex" -> ISO Date String
-        clinical: {}
+        clinical: {},
+        clinicalHistory: [] // Array de registros clínicos ao longo do tempo
     },
 
     init() {
@@ -22,6 +23,7 @@ const App = {
             const parsed = JSON.parse(savedState);
             this.state = { ...this.state, ...parsed };
             if (!this.state.completedDays) this.state.completedDays = {};
+            if (!this.state.clinicalHistory) this.state.clinicalHistory = [];
         } else {
             this.state.currentWeekIndex = 0;
         }
@@ -338,11 +340,40 @@ document.getElementById('saveClinicalBtn').addEventListener('click', () => {
     const weight = document.getElementById('weightInput').value;
     const bf = document.getElementById('bfInput').value;
     const water = document.getElementById('waterInput').value;
+    const weightNum = parseFloat(weight) || 0;
+    const bfNum = parseFloat(bf) || 0;
+    const waterNum = parseFloat(water) || 0;
+    let muscleNum = 0;
+    if (weightNum > 0 && bfNum > 0) {
+        const fatMass = weightNum * (bfNum / 100);
+        muscleNum = weightNum - fatMass;
+    }
     
     App.state.clinical = {
         weight, bf, water,
         lastUpdated: new Date().toISOString()
     };
+
+    // Histórico clínico: mantém um registro por dia sem quebrar o lock diário
+    if (!Array.isArray(App.state.clinicalHistory)) {
+        App.state.clinicalHistory = [];
+    }
+    const todayKey = new Date().toISOString().split('T')[0];
+    const entry = {
+        date: new Date().toISOString(),
+        dayKey: todayKey,
+        weight: weightNum,
+        bf: bfNum,
+        muscle: muscleNum,
+        water: waterNum
+    };
+    const existingIndex = App.state.clinicalHistory.findIndex(e => e.dayKey === todayKey);
+    if (existingIndex >= 0) {
+        App.state.clinicalHistory[existingIndex] = entry;
+    } else {
+        App.state.clinicalHistory.push(entry);
+    }
+
     App.saveState();
     
     // Feedback e Bloqueio
@@ -362,4 +393,10 @@ document.getElementById('bfInput').addEventListener('input', () => App.calcMetri
 
 document.addEventListener('DOMContentLoaded', () => {
     App.init();
+    const clinicalBtn = document.getElementById('clinicalDashboardBtn');
+    if (clinicalBtn) {
+        clinicalBtn.addEventListener('click', () => {
+            window.location.href = 'clinical.html';
+        });
+    }
 });

@@ -77,6 +77,13 @@ body {
     animation: fadeIn 0.6s ease-out;
 }
 
+.header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
 .logo-area {
     display: flex;
     align-items: center;
@@ -113,6 +120,32 @@ body {
     letter-spacing: 0.01em;
 }
 
+.icon-button {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid rgba(10, 132, 255, 0.7);
+    background: radial-gradient(circle at top, rgba(10, 132, 255, 0.22), rgba(2, 3, 8, 0.95));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-blue);
+    box-shadow: 0 0 10px rgba(10, 132, 255, 0.35);
+    cursor: pointer;
+    padding: 0;
+}
+
+.icon-button-symbol {
+    font-size: 1rem;
+}
+
+@media (hover: hover) {
+    .icon-button:hover {
+        box-shadow: 0 0 14px rgba(10, 132, 255, 0.5);
+        transform: translateY(-1px);
+    }
+}
+
 /* Progress Section */
 .progress-section {
     margin: 0 var(--padding-std) 20px;
@@ -142,6 +175,102 @@ body {
     width: 0%;
     transition: width 0.5s ease;
     box-shadow: 0 0 10px var(--accent-blue);
+}
+
+/* Clinical Dashboard Page */
+.clinical-header {
+    padding: 20px var(--padding-std) 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.clinical-header-text h1 {
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+}
+
+.clinical-header-text p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.clinical-back-btn {
+    flex-shrink: 0;
+}
+
+.clinical-page {
+    padding: 10px var(--padding-std) 40px;
+    max-width: 520px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.clinical-empty {
+    padding: 18px 16px;
+}
+
+.clinical-empty h2 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+.clinical-empty p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.metric-card {
+    padding: 14px 14px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.metric-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.metric-header h2 {
+    font-size: 0.9rem;
+}
+
+.metric-header p {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.metric-current {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+}
+
+.metric-diff {
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.metric-diff strong {
+    font-size: 0.9rem;
+}
+
+.metric-body {
+    margin-top: 6px;
+}
+
+.metric-chart {
+    width: 100%;
+    height: 120px;
 }
 
 /* Week Selector */
