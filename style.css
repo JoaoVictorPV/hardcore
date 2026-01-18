@@ -189,17 +189,36 @@ body {
     box-shadow: 0 0 10px rgba(50, 215, 75, 0.1);
 }
 
+/* Accordion Header */
 .day-header {
     padding: 15px;
     background: rgba(255, 255, 255, 0.03);
     border-bottom: 1px solid var(--glass-border);
+    cursor: pointer;
+    transition: background 0.2s;
 }
 
-.day-title-row {
+.day-header:active {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.day-header-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 5px;
+}
+
+.header-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.accordion-icon {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    transition: transform 0.3s ease;
 }
 
 .day-name {
@@ -231,8 +250,46 @@ body {
     opacity: 0.8;
 }
 
-.exercise-list {
+/* Accordion Content */
+.day-content {
+    display: none;
+}
+
+.day-content.open {
+    display: block;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Strategy Section */
+.strategy-section {
+    background: rgba(10, 132, 255, 0.08);
+    border-left: 3px solid var(--accent-blue);
     padding: 15px;
+    margin: 15px;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.strategy-icon {
+    font-size: 1.2rem;
+}
+
+.strategy-text {
+    font-size: 0.9rem;
+    color: #e0e0e0;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+.exercise-list {
+    padding: 0 15px 15px;
 }
 
 .exercise-item {

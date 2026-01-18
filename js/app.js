@@ -21,7 +21,6 @@ const App = {
         if (savedState) {
             const parsed = JSON.parse(savedState);
             this.state = { ...this.state, ...parsed };
-            // Migração de dados antigos se necessário (se mudou de completedExercises para completedDays)
             if (!this.state.completedDays) this.state.completedDays = {};
         } else {
             this.state.currentWeekIndex = 0;
@@ -99,33 +98,44 @@ const App = {
             const card = document.createElement('div');
             card.className = `day-card ${isDayComplete ? 'completed-day' : ''}`;
             card.innerHTML = `
-                <div class="day-header">
-                    <div class="day-title-row">
+                <div class="day-header" onclick="App.toggleDayAccordion(this)">
+                    <div class="day-header-top">
                         <span class="day-name">${day.day}</span>
-                        ${isDayComplete ? '<span class="day-badge">CONCLUÍDO</span>' : ''}
+                        <div class="header-status">
+                            ${isDayComplete ? '<span class="day-badge">CONCLUÍDO</span>' : ''}
+                            <span class="accordion-icon">▼</span>
+                        </div>
                     </div>
                     <div class="day-mantra">"${day.mantra}"</div>
                 </div>
-                <div class="exercise-list">
-                    ${day.exercises.map(ex => `
-                        <div class="exercise-text-item">
-                            <span class="ex-bullet">›</span>
-                            <div class="ex-content">
-                                <div class="ex-main">
-                                    <strong style="color: #fff;">${ex.name}</strong> 
-                                    ${ex.sets ? `<span style="color: var(--accent-blue);"> • ${ex.sets}</span>` : ''}
-                                    ${ex.reps ? `<span style="color: var(--accent-blue);"> • ${ex.reps}</span>` : ''}
+                
+                <div class="day-content">
+                    <div class="strategy-section">
+                        <div class="strategy-icon">⚡</div>
+                        <div class="strategy-text">${day.strategy || "Execute com foco total na técnica."}</div>
+                    </div>
+
+                    <div class="exercise-list">
+                        ${day.exercises.map(ex => `
+                            <div class="exercise-text-item">
+                                <span class="ex-bullet">›</span>
+                                <div class="ex-content">
+                                    <div class="ex-main">
+                                        <strong style="color: #fff;">${ex.name}</strong> 
+                                        ${ex.sets ? `<span style="color: var(--accent-blue);"> • ${ex.sets}</span>` : ''}
+                                        ${ex.reps ? `<span style="color: var(--accent-blue);"> • ${ex.reps}</span>` : ''}
+                                    </div>
+                                    ${ex.notes ? `<div class="ex-notes">${ex.notes}</div>` : ''}
                                 </div>
-                                ${ex.notes ? `<div class="ex-notes">${ex.notes}</div>` : ''}
                             </div>
-                        </div>
-                    `).join('')}
-                </div>
-                <div class="day-actions">
-                    <button class="complete-day-btn ${isDayComplete ? 'completed' : ''}" 
-                        onclick="App.toggleDayCompletion('${currentWeek.id}', ${dayIndex})">
-                        ${isDayComplete ? 'DIA CONCLUÍDO' : 'CONCLUIR MISSÃO'}
-                    </button>
+                        `).join('')}
+                    </div>
+                    <div class="day-actions">
+                        <button class="complete-day-btn ${isDayComplete ? 'completed' : ''}" 
+                            onclick="App.toggleDayCompletion('${currentWeek.id}', ${dayIndex})">
+                            ${isDayComplete ? 'DIA CONCLUÍDO' : 'CONCLUIR MISSÃO'}
+                        </button>
+                    </div>
                 </div>
             `;
             container.appendChild(card);
@@ -139,11 +149,26 @@ const App = {
         });
     },
 
+    toggleDayAccordion(headerElement) {
+        const card = headerElement.parentElement;
+        const content = card.querySelector('.day-content');
+        const icon = card.querySelector('.accordion-icon');
+        
+        // Toggle class instead of inline style for smoother CSS transitions if desired
+        if (content.classList.contains('open')) {
+            content.classList.remove('open');
+            icon.style.transform = 'rotate(0deg)';
+        } else {
+            // Close others? Optional. Let's keep multiple open possible.
+            content.classList.add('open');
+            icon.style.transform = 'rotate(180deg)';
+        }
+    },
+
     toggleDayCompletion(weekId, dayIndex) {
         const dayId = `${weekId}-${dayIndex}`;
         
         if (this.state.completedDays[dayId]) {
-            // Desmarcar? Opcional. Vamos permitir desmarcar caso erro.
             delete this.state.completedDays[dayId];
         } else {
             this.state.completedDays[dayId] = new Date().toISOString();
@@ -152,13 +177,25 @@ const App = {
         }
 
         this.saveState();
-        this.renderCurrentWeek(); // Re-render completo é seguro e rápido aqui
+        this.renderCurrentWeek(); 
+        
+        // Re-open the accordion of the clicked day because render closes everything
+        setTimeout(() => {
+            const container = document.getElementById('workoutContainer');
+            // +1 because of week header
+            const card = container.children[dayIndex + 1];
+            if (card) {
+                const content = card.querySelector('.day-content');
+                const icon = card.querySelector('.accordion-icon');
+                content.classList.add('open');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }, 50);
+
         this.checkWeekCompletion(weekId);
     },
 
     triggerCompletionAnimation(dayIndex) {
-        // Encontrar o card e adicionar classe de flash
-        // +1 offset pelo header
         const container = document.getElementById('workoutContainer');
         const card = container.children[dayIndex + 1];
         if (card) {
