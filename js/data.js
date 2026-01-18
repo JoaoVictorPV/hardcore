@@ -67,9 +67,9 @@ const workoutData = {
                 {
                     day: "Domingo",
                     mantra: "A mente comanda, o corpo obedece.",
-                    strategy: "Dia de Treino Livre e Motivação. Aproveite para fazer uma atividade que você goste ou apenas descansar ativamente. Prepare a mente para a próxima semana.",
+                    strategy: "Dia de treino livre e motivação. Aproveite para testar seus limites ou simplesmente mover o corpo de forma instintiva.",
                     exercises: [
-                        { name: "Treino Livre / Descanso Ativo", sets: "Livre", reps: "", notes: "Caminhada, Alongamento, ou apenas meditação sobre seus objetivos." }
+                        { name: "Treino Livre", sets: "Livre", reps: "Livre", notes: "Faça o que seu corpo pedir. Corrida, Flexões, Alongamento..." }
                     ]
                 }
             ]

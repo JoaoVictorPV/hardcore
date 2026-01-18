@@ -90,11 +90,22 @@ const App = {
         `;
         container.appendChild(weekHeader);
 
+        // Detectar dia atual para auto-open
+        const today = new Date();
+        const dayOfWeek = today.getDay(); // 0 (Dom) a 6 (Sáb)
+        // Mapear JS Day (0=Dom) para Index do Array (0=Seg)
+        // Seg(1)=0, Ter(2)=1, Qua(3)=2, Qui(4)=3, Sex(5)=4, Sab(6)=5, Dom(0)=6
+        const jsDayToArrIndex = { 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5, 0: 6 };
+        const currentDayIndex = jsDayToArrIndex[dayOfWeek];
+
         // Dias
         currentWeek.days.forEach((day, dayIndex) => {
             const dayId = `${currentWeek.id}-${dayIndex}`;
             const isDayComplete = !!this.state.completedDays[dayId];
             
+            // Abrir somente se for o dia atual
+            const isOpen = (dayIndex === currentDayIndex);
+
             const card = document.createElement('div');
             card.className = `day-card ${isDayComplete ? 'completed-day' : ''}`;
             card.innerHTML = `
@@ -103,13 +114,13 @@ const App = {
                         <span class="day-name">${day.day}</span>
                         <div class="header-status">
                             ${isDayComplete ? '<span class="day-badge">CONCLUÍDO</span>' : ''}
-                            <span class="accordion-icon">▼</span>
+                            <span class="accordion-icon" style="transform: ${isOpen ? 'rotate(180deg)' : 'rotate(0deg)'}">▼</span>
                         </div>
                     </div>
                     <div class="day-mantra">"${day.mantra}"</div>
                 </div>
                 
-                <div class="day-content">
+                <div class="day-content ${isOpen ? 'open' : ''}">
                     <div class="strategy-section">
                         <div class="strategy-icon">⚡</div>
                         <div class="strategy-text">${day.strategy || "Execute com foco total na técnica."}</div>
@@ -141,25 +152,6 @@ const App = {
             container.appendChild(card);
         });
         
-        // Auto-open current day
-        const todayIndex = new Date().getDay();
-        const dayMap = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
-        const todayName = dayMap[todayIndex];
-        
-        const todayCardIndex = currentWeek.days.findIndex(d => d.day === todayName);
-
-        if (todayCardIndex !== -1) {
-            const card = container.children[todayCardIndex + 1]; // +1 for week header
-            if (card) {
-                const content = card.querySelector('.day-content');
-                const icon = card.querySelector('.accordion-icon');
-                if (content && icon) {
-                    content.classList.add('open');
-                    icon.style.transform = 'rotate(180deg)';
-                }
-            }
-        }
-
         // Animação de entrada
         const cards = container.querySelectorAll('.day-card');
         cards.forEach((card, i) => {
